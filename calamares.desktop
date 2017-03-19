@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Sparky Installer
+GenericName=Sparky Installer
+TryExec=remsu calamares
+Exec=remsu /usr/bin/calamares
+Comment=System Installer
+Icon=sparky
+Terminal=false
+StartupNotify=false
+Categories=Qt;System;
