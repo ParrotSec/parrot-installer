@@ -12,7 +12,7 @@ if [ -d /sys/firmware/efi/efivars ]; then
     echo "exit 0" > $DEVCHROOT/usr/sbin/grub-probe
     chmod +x $DEVCHROOT/usr/sbin/grub-probe
     # chroot $DEVCHROOT apt-get --allow-unauthenticated -y install grub-efi
-    mkdir -p $DEVCHROOT/boot/efi/EFI/sparky
+    mkdir -p $DEVCHROOT/boot/efi/EFI/parrot
     mkdir -p $DEVCHROOT/debs
     cp /lib/live/mount/medium/offline/* $DEVCHROOT/debs/
     #chroot $DEVCHROOT dpkg -i /debs/*.deb
