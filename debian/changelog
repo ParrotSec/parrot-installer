@@ -1,3 +1,9 @@
+calamares (3.1-parrot2) testing; urgency=medium
+
+  * Increase version and rebuild package
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sat, 01 Apr 2017 12:08:21 +0200
+
 calamares (3.1-parrot1) testing; urgency=medium
 
   * Add customizations
