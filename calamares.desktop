@@ -1,13 +1,12 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Calamares
-GenericName=System Installer
-Keywords=calamares;system;installer
-TryExec=calamares
-Exec=pkexec /usr/bin/calamares
-Comment=Calamares — System Installer
-Icon=calamares
+Name=Parrot Installer
+GenericName=Parrot Installer
+TryExec=gksu calamares
+Exec=gksu /usr/bin/calamares
+Comment=System Installer
+Icon=gdeb
 Terminal=false
-StartupNotify=true
+StartupNotify=false
 Categories=Qt;System;
