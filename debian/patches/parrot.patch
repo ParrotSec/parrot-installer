@@ -62,7 +62,7 @@ Index: calamares/src/branding/parrot/branding.desc
 +++ calamares/src/branding/parrot/branding.desc
 @@ -0,0 +1,27 @@
 +---
-+componentName:  default
++componentName:  parrot
 +
 +strings:
 +    productName:         Parrot GNU/Linux
