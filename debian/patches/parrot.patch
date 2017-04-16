@@ -19,7 +19,35 @@ Index: calamares/settings.conf
 ===================================================================
 --- calamares.orig/settings.conf
 +++ calamares/settings.conf
-@@ -109,7 +109,7 @@ sequence:
+@@ -80,20 +80,23 @@ sequence:
+   - locale
+   - keyboard
+   - localecfg
+-#  - luksbootkeyfile
++  - luksbootkeyfile
+ #  - luksopenswaphookcfg
+ #  - dracutlukscfg
+ #  - plymouthcfg
+-  - initcpiocfg
+-  - initcpio
++#  - initcpiocfg
++#  - initcpio
+   - users
+   - displaymanager
+   - networkcfg
+   - hwclock
+   - services
+ #  - dracut
++  - grubefiinstall
++  - packages
++  - initramfscfg
+   - initramfs
+-#  - grubcfg
++  - grubcfg
+   - bootloader
+   - umount
+ - show:
+@@ -109,7 +112,7 @@ sequence:
  # Only the name of the branding component (directory) should be specified here, Calamares
  # then takes care of finding it and loading the contents.
  # YAML: string.
