@@ -1,3 +1,9 @@
+calamares (3.1-parrot3) testing; urgency=medium
+
+  * Update parrot branding
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Mon, 17 Apr 2017 00:29:06 +0200
+
 calamares (3.1-parrot2) testing; urgency=medium
 
   * Increase version and rebuild package
