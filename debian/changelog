@@ -1,3 +1,9 @@
+calamares (3.1-parrot5.1) UNRELEASED; urgency=medium
+
+  * Test updates
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Thu, 15 Jun 2017 19:04:27 +0200
+
 calamares (3.1-parrot5) testing; urgency=medium
 
   * Fix branding theme name

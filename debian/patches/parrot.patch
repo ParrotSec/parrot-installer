@@ -67,10 +67,10 @@ Index: calamares/src/branding/parrot/branding.desc
 +strings:
 +    productName:         Parrot GNU/Linux
 +    shortProductName:    Parrot
-+    version:             3.6
-+    shortVersion:        3.6
-+    versionedName:       Parrot GNU/Linux 3.6
-+    shortVersionedName:  Parrot 3.6
++    version:             3.7
++    shortVersion:        3.7
++    versionedName:       Parrot GNU/Linux 3.7
++    shortVersionedName:  Parrot 3.7
 +    bootloaderEntryName: Parrot
 +    productUrl:          https://www.parrotsec.org
 +    supportUrl:          https://community.parrotsec.org
