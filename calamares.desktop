@@ -1,12 +1,12 @@
 [Desktop Entry]
-Type=Application
 Version=1.0
+Encoding=UTF-8
 Name=Sparky Installer
 GenericName=Sparky Installer
-TryExec=remsu calamares
+Comment=Sparky Installer
 Exec=remsu /usr/bin/calamares
-Comment=System Installer
-Icon=sparky
+Icon=/usr/share/icons/sparky/sparkybackupsys/sparky48-installer.png
 Terminal=false
-StartupNotify=false
-Categories=Qt;System;
+MultipleArgs=false
+Type=Application
+Categories=Applications;System
