@@ -244,11 +244,8 @@ def run():
     to rootMountPoint, e.g.:
     configuration:
         unpack:
-            - source: "/path/to/filesystem.img"
+            - source: "/lib/live/mount/rootfs/filesystem.squashfs"
               sourcefs: "ext4"
-              destination: ""
-            - source: "/path/to/another/filesystem.sqfs"
-              sourcefs: "squashfs"
               destination: ""
 
     :return:

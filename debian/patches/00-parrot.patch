@@ -1,65 +1,20 @@
-Description: Add parrot branding
+Description: Add parrot branding and configurations.
 Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
-Last-Update: 2017-04-16
+Last-Update: 2017-07-05
 
-Index: calamares/calamares.desktop
-===================================================================
---- calamares.orig/calamares.desktop
-+++ calamares/calamares.desktop
-@@ -1,7 +1,7 @@
- [Desktop Entry]
- Type=Application
- Version=1.0
--Name=Calamares
-+Name=Parrot Installer
- GenericName=System Installer
- Keywords=calamares;system;installer
- TryExec=calamares
-Index: calamares/settings.conf
-===================================================================
---- calamares.orig/settings.conf
-+++ calamares/settings.conf
-@@ -80,20 +80,23 @@ sequence:
-   - locale
-   - keyboard
-   - localecfg
--#  - luksbootkeyfile
-+  - luksbootkeyfile
- #  - luksopenswaphookcfg
- #  - dracutlukscfg
- #  - plymouthcfg
--  - initcpiocfg
--  - initcpio
-+#  - initcpiocfg
-+#  - initcpio
-   - users
-   - displaymanager
-   - networkcfg
-   - hwclock
-   - services
- #  - dracut
-+  - grubefiinstall
-+  - packages
-+  - initramfscfg
-   - initramfs
--#  - grubcfg
-+  - grubcfg
-   - bootloader
-   - umount
- - show:
-@@ -109,7 +112,7 @@ sequence:
+--- calamares-3.1s.orig/settings.conf
++++ calamares-3.1s/settings.conf
+@@ -112,7 +112,7 @@ sequence:
  # Only the name of the branding component (directory) should be specified here, Calamares
  # then takes care of finding it and loading the contents.
  # YAML: string.
--branding: default
+-branding: sparky
 +branding: parrot
  
  # If this is set to true, Calamares will show an "Are you sure?" prompt right before
  # each execution phase, i.e. at points of no return. If this is set to false, no prompt
-Index: calamares/src/branding/parrot/branding.desc
-===================================================================
 --- /dev/null
-+++ calamares/src/branding/parrot/branding.desc
++++ calamares-3.1s/src/branding/parrot/branding.desc
 @@ -0,0 +1,27 @@
 +---
 +componentName:  parrot
@@ -88,10 +43,8 @@ Index: calamares/src/branding/parrot/branding.desc
 +   sidebarBackground:    "#292F34"
 +   sidebarText:          "#FFFFFF"
 +   sidebarTextSelect:    "#292F34"
-Index: calamares/src/branding/parrot/show.qml
-===================================================================
 --- /dev/null
-+++ calamares/src/branding/parrot/show.qml
++++ calamares-3.1s/src/branding/parrot/show.qml
 @@ -0,0 +1,117 @@
 +/*
 + * Parrot theme for Calamares
@@ -125,7 +78,7 @@ Index: calamares/src/branding/parrot/show.qml
 +
 +    Timer {
 +        interval: 5000
-+        running: false
++        running: true
 +        repeat: true
 +        onTriggered: presentation.goToNextSlide()
 +    }

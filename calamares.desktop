@@ -1,13 +1,12 @@
 [Desktop Entry]
-Type=Application
 Version=1.0
-Name=Calamares
-GenericName=System Installer
-Keywords=calamares;system;installer
-TryExec=calamares
-Exec=pkexec /usr/bin/calamares
-Comment=Calamares — System Installer
-Icon=calamares
+Encoding=UTF-8
+Name=Sparky Installer
+GenericName=Sparky Installer
+Comment=Sparky Installer
+Exec=remsu /usr/bin/calamares
+Icon=/usr/share/icons/sparky/sparkybackupsys/sparky48-installer.png
 Terminal=false
-StartupNotify=true
-Categories=Qt;System;
+MultipleArgs=false
+Type=Application
+Categories=Applications;System

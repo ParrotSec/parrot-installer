@@ -1,47 +1,6 @@
-calamares (3.1-parrot5.1) UNRELEASED; urgency=medium
+calamares (3.1s-0parrot0) testing; urgency=medium
 
-  * Test updates
+  * Import new calamares release from sparkylinux.
+  * Apply parrot patches and configs.
 
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Thu, 15 Jun 2017 19:04:27 +0200
-
-calamares (3.1-parrot5) testing; urgency=medium
-
-  * Fix branding theme name
-
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Mon, 17 Apr 2017 01:11:18 +0200
-
-calamares (3.1-parrot4) testing; urgency=medium
-
-  * Fix Patches
-
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Mon, 17 Apr 2017 00:59:03 +0200
-
-calamares (3.1-parrot3) testing; urgency=medium
-
-  * Update parrot branding
-
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Mon, 17 Apr 2017 00:29:06 +0200
-
-calamares (3.1-parrot2) testing; urgency=medium
-
-  * Increase version and rebuild package
-
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sat, 01 Apr 2017 12:08:21 +0200
-
-calamares (3.1-parrot1) testing; urgency=medium
-
-  * Add customizations
-
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 19 Mar 2017 22:58:12 +0100
-
-calamares (3.1-parrot0) testing; urgency=medium
-
-  * Import into Parrot
-
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 19 Mar 2017 21:13:45 +0100
-
-calamares (3.1-sparky9-1) unstable; urgency=medium
-
-  * Initial release
-
- -- pavroo <pavroo@onet.eu>  Thu, 09 Mar 2017 18:20:39 +0100
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Wed, 05 Jul 2017 13:17:38 +0200
