@@ -57,7 +57,13 @@ ModuleManager::ModuleManager( const QStringList& paths, QObject* parent )
 
 
 ModuleManager::~ModuleManager()
-{}
+{
+    // The map is populated with Module::fromDescriptor(), which allocates on the heap.
+    for( auto moduleptr : m_loadedModulesByInstanceKey )
+    {
+        delete moduleptr;
+    }
+}
 
 
 void
@@ -213,14 +219,14 @@ ModuleManager::loadModules()
                 }
 
                 auto findCustomInstance =
-                        [ customInstances ]( const QString& moduleName,
-                                             const QString& instanceId ) -> int
+                        [ customInstances ]( const QString& module,
+                                             const QString& id) -> int
                 {
                     for ( int i = 0; i < customInstances.count(); ++i )
                     {
                         auto thisInstance = customInstances[ i ];
-                        if ( thisInstance.value( "module" ) == moduleName &&
-                             thisInstance.value( "id" ) == instanceId )
+                        if ( thisInstance.value( "module" ) == module &&
+                             thisInstance.value( "id" ) == id )
                             return i;
                     }
                     return -1;
@@ -302,10 +308,6 @@ ModuleManager::loadModules()
                     {
                         evs = new ExecutionViewStep( ViewManager::instance() );
                         ViewManager::instance()->addViewStep( evs );
-                    }
-                    else
-                    {
-                        cDebug() << "LAST VS IS EVS!";
                     }
 
                     evs->appendJobModuleInstanceKey( instanceKey );
