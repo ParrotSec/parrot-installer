@@ -1,0 +1,395 @@
+Description: Add Parrot Customizations
+Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
+Last-Update: 2017-10-15
+
+--- calamares-3.1.5.orig/calamares.desktop
++++ calamares-3.1.5/calamares.desktop
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ Type=Application
+ Version=1.0
+-Name=Calamares
++Name=Install Parrot OS
+ GenericName=System Installer
+ Keywords=calamares;system;installer
+ TryExec=calamares
+@@ -13,103 +13,53 @@ StartupNotify=true
+ Categories=Qt;System;
+ 
+ 
+-Name[ca]=Calamares
+-Icon[ca]=calamares
+ GenericName[ca]=Instal·lador de sistema
+ Comment[ca]=Calamares — Instal·lador de sistema
+-Name[da]=Calamares
+-Icon[da]=calamares
+ GenericName[da]=Systeminstallationsprogram
+ Comment[da]=Calamares — Systeminstallationsprogram
+-Name[de]=Calamares
+-Icon[de]=calamares
+ GenericName[de]=Installation des Betriebssystems
+ Comment[de]=Calamares - Installation des Betriebssystems
+-Name[en_GB]=Calamares
+-Icon[en_GB]=calamares
+ GenericName[en_GB]=System Installer
+ Comment[en_GB]=Calamares — System Installer
+-Name[es]=Calamares
+-Icon[es]=calamares
+ GenericName[es]=Instalador del Sistema
+ Comment[es]=Calamares — Instalador del Sistema
+-Name[fr]=Calamares
+-Icon[fr]=calamares
+ GenericName[fr]=Installateur système
+ Comment[fr]=Calamares - Installateur système
+-Name[he]=קלמארס
+-Icon[he]=קלמארס
+ GenericName[he]=אשף התקנה
+ Comment[he]=קלמארס - אשף התקנה
+-Name[hr]=Calamares
+-Icon[hr]=calamares
+ GenericName[hr]=Instalacija sustava
+ Comment[hr]=Calamares — Instalacija sustava
+-Name[hu]=Calamares
+-Icon[hu]=calamares
+ GenericName[hu]=Rendszer Telepítő
+ Comment[hu]=Calamares — Rendszer Telepítő
+-Name[id]=Calamares
+-Icon[id]=calamares
+ GenericName[id]=Pemasang
+ Comment[id]=Calamares — Pemasang Sistem
+-Name[is]=Calamares
+-Icon[is]=calamares
+ GenericName[is]=Kerfis uppsetning
+ Comment[is]=Calamares — Kerfis uppsetning
+-Name[ja]=Calamares
+-Icon[ja]=calamares
+ GenericName[ja]=システムインストーラー
+ Comment[ja]=Calamares — システムインストーラー
+-Name[lt]=Calamares
+-Icon[lt]=calamares
+ GenericName[lt]=Sistemos diegimas į kompiuterį
+ Comment[lt]=Calamares — sistemos diegyklė
+-Name[nl]=Calamares
+-Icon[nl]=calamares
+ GenericName[nl]=Installatieprogramma
+ Comment[nl]=Calamares — Installatieprogramma
+-Name[pl]=Calamares
+-Icon[pl]=calamares
+ GenericName[pl]=Instalator systemu
+ Comment[pl]=Calamares — Instalator systemu
+-Name[pt_BR]=Calamares
+-Icon[pt_BR]=calamares
+ GenericName[pt_BR]=Instalador de Sistema
+ Comment[pt_BR]=Calamares — Instalador de Sistema
+-Name[cs_CZ]=Calamares
+-Icon[cs_CZ]=calamares
+ GenericName[cs_CZ]=Instalační program systému
+ Comment[cs_CZ]=Calamares - instalační program systému
+-Name[ru]=Calamares
+-Icon[ru]=calamares
+ GenericName[ru]=Установщик системы
+ Comment[ru]=Calamares - Установщик системы
+-Name[sk]=Calamares
+-Icon[sk]=calamares
+ GenericName[sk]=Inštalátor systému
+ Comment[sk]=Calamares — Inštalátor systému
+-Name[sv]=Calamares
+-Icon[sv]=calamares
+ GenericName[sv]=Systeminstallerare
+ Comment[sv]=Calamares — Systeminstallerare
+-Name[zh_CN]=Calamares
+-Icon[zh_CN]=calamares
+ GenericName[zh_CN]=系统安装程序
+ Comment[zh_CN]=Calamares — 系统安装程序
+-Name[zh_TW]=Calamares
+-Icon[zh_TW]=calamares
+ GenericName[zh_TW]=系統安裝程式
+ Comment[zh_TW]=Calamares ── 系統安裝程式
+-Name[ast]=Calamares
+-Icon[ast]=calamares
+ GenericName[ast]=Instalador del sistema
+ Comment[ast]=Calamares — Instalador del sistema
+-Name[pt_PT]=Calamares
+-Icon[pt_PT]=calamares
+ GenericName[pt_PT]=Instalador de Sistema
+ Comment[pt_PT]=Calamares - Instalador de Sistema
+-Name[tr_TR]=Calamares
+-Icon[tr_TR]=calamares
+ GenericName[tr_TR]=Sistem Yükleyici
+ Comment[tr_TR]=Calamares — Sistem Yükleyici
+--- calamares-3.1.5.orig/settings.conf
++++ calamares-3.1.5/settings.conf
+@@ -109,14 +109,14 @@ sequence:
+ # Only the name of the branding component (directory) should be specified here, Calamares
+ # then takes care of finding it and loading the contents.
+ # YAML: string.
+-branding: default
++branding: parrot
+ 
+ # If this is set to true, Calamares will show an "Are you sure?" prompt right before
+ # each execution phase, i.e. at points of no return. If this is set to false, no prompt
+ # is shown.
+ # Default is false.
+ # YAML: boolean.
+-prompt-install: false
++prompt-install: true
+ 
+ # If this is set to true, Calamares will execute all target environment commands in the
+ # current environment, without chroot. This setting is considered experimental, and it
+--- /dev/null
++++ calamares-3.1.5/src/branding/parrot/branding.desc
+@@ -0,0 +1,27 @@
++---
++componentName:  parrot
++
++strings:
++    productName:         Parrot GNU/Linux
++    shortProductName:    Parrot
++    version:             3.9
++    shortVersion:        3.9
++    versionedName:       Parrot GNU/Linux 3.9 (Intruder)
++    shortVersionedName:  Parrot 3.9
++    bootloaderEntryName: Parrot
++    productUrl:          https://www.parrotsec.org
++    supportUrl:          https://community.parrotsec.org
++    knownIssuesUrl:      https://dev.parrotsec.org/groups/parrot/issues
++    releaseNotesUrl:     https://blog.parrotsec.org
++
++images:
++    productLogo:         "logo.jpg"
++    productIcon:         "logo.jpg"
++    productWelcome:      "languages.png"
++
++slideshow:               "show.qml"
++
++style:
++   sidebarBackground:    "#292F34"
++   sidebarText:          "#FFFFFF"
++   sidebarTextSelect:    "#292F34"
+--- /dev/null
++++ calamares-3.1.5/src/branding/parrot/show.qml
+@@ -0,0 +1,117 @@
++/*
++ * Parrot theme for Calamares
++ * 
++ * Copyright 2017 Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
++ * 
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ * 
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ * 
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
++ * MA 02110-1301, USA.
++ * 
++ * 
++ */
++
++import QtQuick 2.0;
++import calamares.slideshow 1.0;
++
++Presentation
++{
++    id: presentation
++
++    Timer {
++        interval: 5000
++        running: false
++        repeat: true
++        onTriggered: presentation.goToNextSlide()
++    }
++    
++    Slide {
++
++        Image {
++            id: background
++            source: "slides.png"
++            width: 450; height: 159
++            fillMode: Image.PreserveAspectFit
++            anchors.centerIn: parent
++        }
++        Text {
++            anchors.horizontalCenter: background.horizontalCenter
++            anchors.top: background.bottom
++            text: "This is the installer of the Parrot GNU/Linux Distribution.<br/>"+
++                  "It includes a full portable laboratory for security"+
++                  "and digital forensics experts, but it also includes"+
++                  "all you need to develop your own softwares or protect"+
++                  "your privacy with anonymity and crypto tools."
++            wrapMode: Text.WordWrap
++            width: root.width
++            horizontalAlignment: Text.Center
++        }
++    }
++
++    Slide {
++
++        Image {
++            id: background
++            source: "links.jpg"
++            width: 300; height: 140
++            fillMode: Image.PreserveAspectFit
++            anchors.centerIn: parent
++        }
++        Text {
++            anchors.horizontalCenter: background.horizontalCenter
++            anchors.top: background.bottom
++            text: "<h3>Security</h3><br>Parrot Security includes a full arsenal of security oriented tools to perform penetration tests, security audits and more. With a Parrot usb drive in your pocket you will always be sure to have all you need with you."
++            wrapMode: Text.WordWrap
++            width: root.width
++            horizontalAlignment: Text.Center
++        }
++    }
++
++    Slide {
++
++        Image {
++            id: background
++            source: "fingerprint.jpg"
++            width: 300; height: 147
++            fillMode: Image.PreserveAspectFit
++            anchors.centerIn: parent
++        }
++        Text {
++            anchors.horizontalCenter: background.horizontalCenter
++            anchors.top: background.bottom
++            text: "<h3>Privacy</h3><br> Parrot includes by default TOR, I2P, anonsurf, gpg, zulucrypt, veracrypt, truecrypt, luks and many other technologies designed to defend your privacy and your identity."
++            wrapMode: Text.WordWrap
++            width: root.width
++            horizontalAlignment: Text.Center
++        }
++    }
++    
++    Slide {
++
++        Image {
++            id: background
++            source: "devel.jpg"
++            width: 360; height: 122
++            fillMode: Image.PreserveAspectFit
++            anchors.centerIn: parent
++        }
++        Text {
++            anchors.horizontalCenter: background.horizontalCenter
++            anchors.top: background.bottom
++            text: "<h3>Development</h3><br> If you need a comfortable environment with updated frameworks and useful libraries already installed, Parrot will amaze you as it includes a full development-oriented environment with some powerful editors and IDEs pre-installed and many other tools installable from our repository."
++            wrapMode: Text.WordWrap
++            width: root.width
++            horizontalAlignment: Text.Center
++        }
++    }
++}
+--- calamares-3.1.5.orig/src/modules/fstab/fstab.conf
++++ calamares-3.1.5/src/modules/fstab/fstab.conf
+@@ -1,13 +1,13 @@
+ ---
+ mountOptions:
+     default: defaults,noatime
+-    btrfs: defaults,noatime,space_cache,autodefrag
++    btrfs: defaults,noatime,nodiratime,space_cache,autodefrag,compress=lzo
+ ssdExtraMountOptions:
+     ext4: discard
+     jfs: discard
+     xfs: discard
+     swap: discard
+-    btrfs: discard,compress=lzo
+-crypttabOptions: luks
++    btrfs: discard
++crypttabOptions: luks,keyscript=/bin/cat
+ # For Debian and Debian-based distributions, change the above line to:
+ # crypttabOptions: luks,keyscript=/bin/cat
+--- calamares-3.1.5.orig/src/modules/packages/packages.conf
++++ calamares-3.1.5/src/modules/packages/packages.conf
+@@ -12,7 +12,7 @@
+ #  - entropy     - Sabayon package manager
+ #  - dummy       - Dummy manager, only logs
+ #
+-backend: dummy
++backend: apt
+ 
+ # If set to true, a package-manager specific update procedure
+ # is run first (only if there is internet) to update the list
+@@ -112,11 +112,7 @@ update_db: true
+ # of packages, this can lead to a considerable time savings.
+ #
+ operations:
+-  - install:
+-    - vi
+-    - wget
+-    - binutils
+-  - remove:
+-    - vi
+-    - wget
+-    - binutils
++  - try_remove:
++      - '^live-*'
++      - calamares
++      - memtest86+
+--- calamares-3.1.5.orig/src/modules/partition/partition.conf
++++ calamares-3.1.5/src/modules/partition/partition.conf
+@@ -21,7 +21,7 @@ ensureSuspendToDisk:    true
+ neverCreateSwap:        false
+ 
+ # Correctly draw nested (e.g. logical) partitions as such.
+-drawNestedPartitions:   false
++drawNestedPartitions:   true
+ 
+ # Show/hide partition labels on manual partitioning page.
+ alwaysShowPartitionLabels: true
+--- calamares-3.1.5.orig/src/modules/services/services.conf
++++ calamares-3.1.5/src/modules/services/services.conf
+@@ -10,7 +10,7 @@ services:
+ 
+ targets:
+   - name: "graphical"
+-    mandatory: true
++    mandatory: false
+ 
+ disable:
+   - name: "pacman-init"
+--- calamares-3.1.5.orig/src/modules/unpackfs/unpackfs.conf
++++ calamares-3.1.5/src/modules/unpackfs/unpackfs.conf
+@@ -33,6 +33,6 @@ unpack:
+ 
+ # You can list filesystem source paths relative to the Calamares run
+ # directory, if you use -d (this is only useful for testing, though).
+-    -   source: ./example.sqfs
++    -   source: "/lib/live/mount/rootfs/filesystem.squashfs"
+         sourcefs: squashfs
+         destination: ""
+--- calamares-3.1.5.orig/src/modules/users/users.conf
++++ calamares-3.1.5/src/modules/users/users.conf
+@@ -19,11 +19,24 @@ defaultGroups:
+     - storage
+     - wheel
+     - audio
++    - cdrom
++    - dip
++    - floppy
++    - plugdev
++    - powerdev
++    - netdev
++    - scanner
++    - bluetooth
++    - debian-tor
++    - sudo
++    - libvirt
++	- fuse
++
+ autologinGroup:  autologin
+-doAutologin:     true
++doAutologin:     false
+ 
+ # remove the following line to avoid creating /etc/sudoers.d/10-installer
+-sudoersGroup:    wheel
++sudoersGroup:    sudo
+ 
+ setRootPassword: true
+ doReusePassword: true
