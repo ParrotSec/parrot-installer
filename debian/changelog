@@ -1,3 +1,9 @@
+calamares (3.1.5-2parrot0) testing; urgency=medium
+
+  * Fix squashfs path.
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 15 Oct 2017 17:38:06 +0200
+
 calamares (3.1.5-1parrot0) testing; urgency=medium
 
   * Import new Debian version.

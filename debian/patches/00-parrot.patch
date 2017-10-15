@@ -361,7 +361,7 @@ Last-Update: 2017-10-15
  # You can list filesystem source paths relative to the Calamares run
  # directory, if you use -d (this is only useful for testing, though).
 -    -   source: ./example.sqfs
-+    -   source: "/lib/live/mount/rootfs/filesystem.squashfs"
++    -   source: "/lib/live/mount/medium/live/filesystem.squashfs"
          sourcefs: squashfs
          destination: ""
 --- calamares-3.1.5.orig/src/modules/users/users.conf
