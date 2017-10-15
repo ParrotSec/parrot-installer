@@ -1,6 +1,7 @@
 /* === This file is part of Calamares - <http://github.com/calamares> ===
  *
  *   Copyright 2014-2016, Teo Mrnjavac <teo@kde.org>
+ *   Copyright 2017, Adriaan de Groot <groot@kde.org>
  *
  *   Calamares is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -171,9 +172,8 @@ LocalePage::LocalePage( QWidget* parent )
              !dlg->selectedLCLocale().isEmpty() )
         {
             m_selectedLocaleConfiguration.lang = dlg->selectedLCLocale();
-            m_localeLabel->setText( tr( "The system language will be set to %1." )
-                                    .arg( prettyLCLocale(
-                                        m_selectedLocaleConfiguration.lang ) ) );
+            m_selectedLocaleConfiguration.explicit_lang = true;
+            this->updateLocaleLabels();
         }
 
         dlg->deleteLater();
@@ -202,10 +202,9 @@ LocalePage::LocalePage( QWidget* parent )
             m_selectedLocaleConfiguration.lc_telephone = dlg->selectedLCLocale();
             m_selectedLocaleConfiguration.lc_measurement = dlg->selectedLCLocale();
             m_selectedLocaleConfiguration.lc_identification = dlg->selectedLCLocale();
+            m_selectedLocaleConfiguration.explicit_lc = true;
 
-            m_formatsLabel->setText( tr( "The numbers and dates locale will be set to %1." )
-                                    .arg( prettyLCLocale(
-                                        m_selectedLocaleConfiguration.lc_numeric ) ) );
+            this->updateLocaleLabels();
         }
 
         dlg->deleteLater();
@@ -234,11 +233,9 @@ LocalePage::updateLocaleLabels()
     LocaleConfiguration lc = m_selectedLocaleConfiguration.isEmpty() ?
                              guessLocaleConfiguration() :
                              m_selectedLocaleConfiguration;
-    m_localeLabel->setText( tr( "The system language will be set to %1." )
-                            .arg( prettyLCLocale( lc.lang ) ) );
-
-    m_formatsLabel->setText( tr( "The numbers and dates locale will be set to %1." )
-                            .arg( prettyLCLocale( lc.lc_numeric ) ) );
+    auto labels = prettyLocaleStatus( lc );
+    m_localeLabel->setText( labels.first );
+    m_formatsLabel->setText( labels.second );
 }
 
 
@@ -285,7 +282,7 @@ LocalePage::init( const QString& initialRegion,
     }
     else
     {
-        m_tzWidget->setCurrentLocation( "Europe", "Berlin" );
+        m_tzWidget->setCurrentLocation( "America", "New_York" );
     }
     emit m_tzWidget->locationChanged( m_tzWidget->getCurrentLocation() );
 
@@ -350,14 +347,16 @@ LocalePage::init( const QString& initialRegion,
     if ( m_localeGenLines.isEmpty() )
     {
         cDebug() << "WARNING: cannot acquire a list of available locales."
-                 << "The locale and localecfg modules will be broken as long as this "
+                    << "The locale and localecfg modules will be broken as long as this "
                     "system does not provide"
-                 << " * a /usr/share/i18n/SUPPORTED file"
-                 << "\tOR"
-                 << " * a well-formed /etc/locale.gen"
-                 << "\tOR"
-                 << " * a complete pre-compiled locale-gen database which allows complete locale -a output.";
-
+                    << "\n\t  "
+                    << "* a well-formed"
+                    << supported.fileName()
+                    << "\n\tOR"
+                    << "* a well-formed"
+                    << (localeGenPath.isEmpty() ? QLatin1Literal("/etc/locale.gen") : localeGenPath)
+                    << "\n\tOR"
+                    << "* a complete pre-compiled locale-gen database which allows complete locale -a output.";
         return; // something went wrong and there's nothing we can do about it.
     }
 
@@ -382,6 +381,15 @@ LocalePage::init( const QString& initialRegion,
     updateGlobalStorage();
 }
 
+std::pair< QString, QString > LocalePage::prettyLocaleStatus( const LocaleConfiguration& lc ) const
+{
+    return std::make_pair< QString, QString >(
+        tr( "The system language will be set to %1." )
+            .arg( prettyLCLocale( lc.lang ) ),
+        tr( "The numbers and dates locale will be set to %1." )
+                            .arg( prettyLCLocale( lc.lc_numeric ) )
+                                             );
+}
 
 QString
 LocalePage::prettyStatus() const
@@ -390,6 +398,13 @@ LocalePage::prettyStatus() const
     status += tr( "Set timezone to %1/%2.<br/>" )
               .arg( m_regionCombo->currentText() )
               .arg( m_zoneCombo->currentText() );
+
+    LocaleConfiguration lc = m_selectedLocaleConfiguration.isEmpty() ?
+                guessLocaleConfiguration() :
+                m_selectedLocaleConfiguration;
+    auto labels = prettyLocaleStatus(lc);
+    status += labels.first + "<br/>";
+    status += labels.second + "<br/>";
 
     return status;
 }
@@ -421,25 +436,25 @@ void
 LocalePage::onActivate()
 {
     m_regionCombo->setFocus();
+    if ( m_selectedLocaleConfiguration.isEmpty() ||
+         !m_selectedLocaleConfiguration.explicit_lang )
+    {
+        auto newLocale = guessLocaleConfiguration();
+        m_selectedLocaleConfiguration.lang = newLocale.lang;
+        updateLocaleLabels();
+    }
 }
 
 
 LocaleConfiguration
-LocalePage::guessLocaleConfiguration()
+LocalePage::guessLocaleConfiguration() const
 {
-    QLocale myLocale = QLocale();   // User-selected language
+    QLocale myLocale;   // User-selected language
 
     // If we cannot say anything about available locales
     if ( m_localeGenLines.isEmpty() )
     {
-        cDebug() << "WARNING: cannot acquire a list of available locales."
-                 << "The locale and localecfg modules will be broken as long as this "
-                    "system does not provide"
-                 << " * a /usr/share/i18n/SUPPORTED file"
-                 << "\tOR"
-                 << " * a well-formed /etc/locale.gen"
-                 << "\tOR"
-                 << " * a complete pre-compiled locale-gen database which allows complete locale -a output.";
+        cDebug() << "WARNING: guessLocaleConfiguration can't guess from an empty list.";
         return LocaleConfiguration::createDefault();
     }
 
@@ -454,7 +469,7 @@ LocalePage::guessLocaleConfiguration()
 
 
 QString
-LocalePage::prettyLCLocale( const QString& lcLocale )
+LocalePage::prettyLCLocale( const QString& lcLocale ) const
 {
     QString localeString = lcLocale;
     if ( localeString.endsWith( " UTF-8" ) )
@@ -486,6 +501,27 @@ LocalePage::updateGlobalStorage()
                               location.region + '/' + location.zone } );
     }
 
-    m_selectedLocaleConfiguration = guessLocaleConfiguration();
+    // Preserve those settings that have been made explicit.
+    auto newLocale = guessLocaleConfiguration();
+    if ( !m_selectedLocaleConfiguration.isEmpty() &&
+         m_selectedLocaleConfiguration.explicit_lang )
+        newLocale.lang = m_selectedLocaleConfiguration.lang;
+    if ( !m_selectedLocaleConfiguration.isEmpty() &&
+         m_selectedLocaleConfiguration.explicit_lc )
+    {
+        newLocale.lc_numeric = m_selectedLocaleConfiguration.lc_numeric;
+        newLocale.lc_time = m_selectedLocaleConfiguration.lc_time;
+        newLocale.lc_monetary = m_selectedLocaleConfiguration.lc_monetary;
+        newLocale.lc_paper = m_selectedLocaleConfiguration.lc_paper;
+        newLocale.lc_name = m_selectedLocaleConfiguration.lc_name;
+        newLocale.lc_address = m_selectedLocaleConfiguration.lc_address;
+        newLocale.lc_telephone = m_selectedLocaleConfiguration.lc_telephone;
+        newLocale.lc_measurement = m_selectedLocaleConfiguration.lc_measurement;
+        newLocale.lc_identification = m_selectedLocaleConfiguration.lc_identification;
+    }
+    newLocale.explicit_lang = m_selectedLocaleConfiguration.explicit_lang;
+    newLocale.explicit_lc = m_selectedLocaleConfiguration.explicit_lc;
+
+    m_selectedLocaleConfiguration = newLocale;
     updateLocaleLabels();
 }

@@ -1,6 +1,0 @@
----
-type:       "job"
-name:       "grubefiinstall"
-interface:  "process"
-command:    "./bootloader-eficonfig"
-timeout:    600
