@@ -44,7 +44,7 @@ Vcs-Git: https://anonscm.debian.org/git/pkg-kde/kde-extras/calamares.git
 
 Package: parrot-installer
 Architecture: linux-any
-Depends: libkpmcore5, os-prober, ${misc:Depends}, ${shlibs:Depends}
+Depends: os-prober, ${misc:Depends}, ${shlibs:Depends}
 Recommends: squashfs-tools
 Description: distribution-independent installer framework
  Calamares is a distribution-independent installer framework.

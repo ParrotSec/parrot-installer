@@ -139,10 +139,10 @@ Last-Update: 2017-11-28
 +strings:
 +    productName:         Parrot GNU/Linux
 +    shortProductName:    Parrot
-+    version:             3.9
-+    shortVersion:        3.9
-+    versionedName:       Parrot GNU/Linux 3.9 (Intruder)
-+    shortVersionedName:  Parrot 3.9
++    version:             3.10
++    shortVersion:        3.10
++    versionedName:       Parrot 3.10 (Intruder)
++    shortVersionedName:  Parrot 3.10
 +    bootloaderEntryName: Parrot
 +    productUrl:          https://www.parrotsec.org
 +    supportUrl:          https://community.parrotsec.org
@@ -330,7 +330,7 @@ Last-Update: 2017-11-28
 -    - binutils
 +  - try_remove:
 +    - '^live-*'
-+    - calamares
++    - parrot-installer
 --- calamares-3.1.8.orig/src/modules/partition/partition.conf
 +++ calamares-3.1.8/src/modules/partition/partition.conf
 @@ -21,7 +21,7 @@ ensureSuspendToDisk:    true

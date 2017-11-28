@@ -1,3 +1,10 @@
+parrot-installer (3.1.8-1parrot1) testing; urgency=medium
+
+  * Fix dependencies.
+  * Fix post-installation packages removal.
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Wed, 29 Nov 2017 00:50:33 +0100
+
 parrot-installer (3.1.8-1parrot0) testing; urgency=medium
 
   * Apply Parrot patches.
