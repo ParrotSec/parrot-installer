@@ -1,16 +1,52 @@
-calamares (3.1.5-2parrot0) testing; urgency=medium
+parrot-installer (3.1.8-1parrot0) testing; urgency=medium
 
-  * Fix squashfs path.
+  * Apply Parrot patches.
 
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 15 Oct 2017 17:38:06 +0200
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Wed, 29 Nov 2017 00:26:55 +0100
 
-calamares (3.1.5-1parrot0) testing; urgency=medium
+calamares (3.1.8-1) unstable; urgency=medium
 
-  * Import new Debian version.
-  * Add Parrot branding.
-  * Add Parrot patches.
+  * New upstream release
 
- -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 15 Oct 2017 15:40:42 +0200
+ -- Jonathan Carter <jcc@debian.org>  Mon, 20 Nov 2017 09:45:48 +0200
+
+calamares (3.1.7-2) unstable; urgency=medium
+
+  * Remove unneeded build dependency libpythonqt-dev (Closes: #880333)
+
+ -- Jonathan Carter <jcc@debian.org>  Mon, 13 Nov 2017 09:26:00 +0200
+
+calamares (3.1.7-1) unstable; urgency=medium
+
+  * New upstream release
+  * debian/copyright: update copyright years
+
+ -- Jonathan Carter <jcc@debian.org>  Sat, 28 Oct 2017 09:36:57 +0200
+
+calamares (3.1.6-4) unstable; urgency=medium
+
+  * Attempt to make package reproducible
+
+ -- Jonathan Carter <jcc@debian.org>  Mon, 23 Oct 2017 09:43:10 +0200
+
+calamares (3.1.6-3) unstable; urgency=medium
+
+  * Update dependencies
+
+ -- Jonathan Carter <jcc@debian.org>  Fri, 20 Oct 2017 09:09:20 +0200
+
+calamares (3.1.6-2) unstable; urgency=medium
+
+  * Package rebuild (no source changes)
+
+ -- Jonathan Carter <jcc@debian.org>  Thu, 19 Oct 2017 20:15:55 +0200
+
+calamares (3.1.6-1) unstable; urgency=medium
+
+  * New upstream release
+  * Update standards version to 4.1.1 (no related changes)
+
+ -- Jonathan Carter <jcc@debian.org>  Tue, 17 Oct 2017 14:48:51 +0200
 
 calamares (3.1.5-1) unstable; urgency=medium
 

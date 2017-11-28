@@ -1,4 +1,4 @@
-Source: calamares
+Source: parrot-installer
 Section: utils
 Priority: optional
 Maintainer: Jonathan Carter <jcc@debian.org>
@@ -37,12 +37,12 @@ Build-Depends: cmake,
                qtdeclarative5-dev,
                qttools5-dev,
                qttools5-dev-tools
-Standards-Version: 4.1.0
+Standards-Version: 4.1.1
 Homepage: https://github.com/calamares/calamares
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-kde/kde-extras/calamares.git
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/kde-extras/calamares.git
 
-Package: calamares
+Package: parrot-installer
 Architecture: linux-any
 Depends: libkpmcore5, os-prober, ${misc:Depends}, ${shlibs:Depends}
 Recommends: squashfs-tools
