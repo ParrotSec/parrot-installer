@@ -2,9 +2,11 @@ Description: add parrot patches
 Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
 Last-Update: 2017-11-28
 
---- calamares-3.1.8.orig/calamares.desktop
-+++ calamares-3.1.8/calamares.desktop
-@@ -1,7 +1,7 @@
+Index: parrot-installer/calamares.desktop
+===================================================================
+--- parrot-installer.orig/calamares.desktop
++++ parrot-installer/calamares.desktop
+@@ -1,115 +1,13 @@
  [Desktop Entry]
  Type=Application
  Version=1.0
@@ -13,7 +15,10 @@ Last-Update: 2017-11-28
  GenericName=System Installer
  Keywords=calamares;system;installer
  TryExec=calamares
-@@ -11,105 +11,3 @@ Icon=calamares
+-Exec=sudo /usr/bin/calamares
++Exec=pkexec /usr/bin/calamares
+ Comment=Calamares — System Installer
+ Icon=calamares
  Terminal=false
  StartupNotify=true
  Categories=Qt;System;
@@ -119,8 +124,10 @@ Last-Update: 2017-11-28
 -Icon[tr_TR]=calamares
 -GenericName[tr_TR]=Sistem Yükleyici
 -Comment[tr_TR]=Calamares — Sistem Yükleyici
---- calamares-3.1.8.orig/settings.conf
-+++ calamares-3.1.8/settings.conf
+Index: parrot-installer/settings.conf
+===================================================================
+--- parrot-installer.orig/settings.conf
++++ parrot-installer/settings.conf
 @@ -109,7 +109,7 @@ sequence:
  # Only the name of the branding component (directory) should be specified here, Calamares
  # then takes care of finding it and loading the contents.
@@ -130,8 +137,10 @@ Last-Update: 2017-11-28
  
  # If this is set to true, Calamares will show an "Are you sure?" prompt right before
  # each execution phase, i.e. at points of no return. If this is set to false, no prompt
+Index: parrot-installer/src/branding/parrot/branding.desc
+===================================================================
 --- /dev/null
-+++ calamares-3.1.8/src/branding/parrot/branding.desc
++++ parrot-installer/src/branding/parrot/branding.desc
 @@ -0,0 +1,27 @@
 +---
 +componentName:  parrot
@@ -160,8 +169,10 @@ Last-Update: 2017-11-28
 +   sidebarBackground:    "#292F34"
 +   sidebarText:          "#FFFFFF"
 +   sidebarTextSelect:    "#292F34"
+Index: parrot-installer/src/branding/parrot/show.qml
+===================================================================
 --- /dev/null
-+++ calamares-3.1.8/src/branding/parrot/show.qml
++++ parrot-installer/src/branding/parrot/show.qml
 @@ -0,0 +1,117 @@
 +/*
 + * Parrot theme for Calamares
@@ -280,8 +291,10 @@ Last-Update: 2017-11-28
 +        }
 +    }
 +}
---- calamares-3.1.8.orig/src/modules/fstab/fstab.conf
-+++ calamares-3.1.8/src/modules/fstab/fstab.conf
+Index: parrot-installer/src/modules/fstab/fstab.conf
+===================================================================
+--- parrot-installer.orig/src/modules/fstab/fstab.conf
++++ parrot-installer/src/modules/fstab/fstab.conf
 @@ -1,13 +1,13 @@
  ---
  mountOptions:
@@ -299,8 +312,10 @@ Last-Update: 2017-11-28
 +crypttabOptions: luks,keyscript=/bin/cat
  # For Debian and Debian-based distributions, change the above line to:
  # crypttabOptions: luks,keyscript=/bin/cat
---- calamares-3.1.8.orig/src/modules/packages/packages.conf
-+++ calamares-3.1.8/src/modules/packages/packages.conf
+Index: parrot-installer/src/modules/packages/packages.conf
+===================================================================
+--- parrot-installer.orig/src/modules/packages/packages.conf
++++ parrot-installer/src/modules/packages/packages.conf
 @@ -12,12 +12,12 @@
  #  - entropy     - Sabayon package manager
  #  - dummy       - Dummy manager, only logs
@@ -331,8 +346,10 @@ Last-Update: 2017-11-28
 +  - try_remove:
 +    - '^live-*'
 +    - parrot-installer
---- calamares-3.1.8.orig/src/modules/partition/partition.conf
-+++ calamares-3.1.8/src/modules/partition/partition.conf
+Index: parrot-installer/src/modules/partition/partition.conf
+===================================================================
+--- parrot-installer.orig/src/modules/partition/partition.conf
++++ parrot-installer/src/modules/partition/partition.conf
 @@ -21,7 +21,7 @@ ensureSuspendToDisk:    true
  neverCreateSwap:        false
  
@@ -342,8 +359,10 @@ Last-Update: 2017-11-28
  
  # Show/hide partition labels on manual partitioning page.
  alwaysShowPartitionLabels: true
---- calamares-3.1.8.orig/src/modules/services/services.conf
-+++ calamares-3.1.8/src/modules/services/services.conf
+Index: parrot-installer/src/modules/services/services.conf
+===================================================================
+--- parrot-installer.orig/src/modules/services/services.conf
++++ parrot-installer/src/modules/services/services.conf
 @@ -5,16 +5,11 @@ services:
    - name: "NetworkManager"  #name of the service file
      mandatory: false        #true=> if enabling fails the installer errors out and quits
@@ -362,8 +381,10 @@ Last-Update: 2017-11-28
 +disable: []
  # Example to express an empty list:
  # disable: []
---- calamares-3.1.8.orig/src/modules/unpackfs/unpackfs.conf
-+++ calamares-3.1.8/src/modules/unpackfs/unpackfs.conf
+Index: parrot-installer/src/modules/unpackfs/unpackfs.conf
+===================================================================
+--- parrot-installer.orig/src/modules/unpackfs/unpackfs.conf
++++ parrot-installer/src/modules/unpackfs/unpackfs.conf
 @@ -33,6 +33,6 @@ unpack:
  
  # You can list filesystem source paths relative to the Calamares run
@@ -372,8 +393,10 @@ Last-Update: 2017-11-28
 +    -   source: "/lib/live/mount/medium/live/filesystem.squashfs"
          sourcefs: squashfs
          destination: ""
---- calamares-3.1.8.orig/src/modules/users/users.conf
-+++ calamares-3.1.8/src/modules/users/users.conf
+Index: parrot-installer/src/modules/users/users.conf
+===================================================================
+--- parrot-installer.orig/src/modules/users/users.conf
++++ parrot-installer/src/modules/users/users.conf
 @@ -19,8 +19,19 @@ defaultGroups:
      - storage
      - wheel

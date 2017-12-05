@@ -1,3 +1,9 @@
+parrot-installer (3.1.8-1parrot2) testing; urgency=medium
+
+  * Fix parrot branding.
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Tue, 05 Dec 2017 08:27:55 +0100
+
 parrot-installer (3.1.8-1parrot1) testing; urgency=medium
 
   * Fix dependencies.
