@@ -1,12 +1,10 @@
-Description: add parrot patches
+Description: Parrot base Patches
 Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
-Last-Update: 2017-11-28
+Last-Update: 2017-12-19
 
-Index: parrot-installer/calamares.desktop
-===================================================================
---- parrot-installer.orig/calamares.desktop
-+++ parrot-installer/calamares.desktop
-@@ -1,115 +1,13 @@
+--- parrot-installer-3.1.8.orig/calamares.desktop
++++ parrot-installer-3.1.8/calamares.desktop
+@@ -1,7 +1,7 @@
  [Desktop Entry]
  Type=Application
  Version=1.0
@@ -15,10 +13,7 @@ Index: parrot-installer/calamares.desktop
  GenericName=System Installer
  Keywords=calamares;system;installer
  TryExec=calamares
--Exec=sudo /usr/bin/calamares
-+Exec=pkexec /usr/bin/calamares
- Comment=Calamares — System Installer
- Icon=calamares
+@@ -11,105 +11,3 @@ Icon=calamares
  Terminal=false
  StartupNotify=true
  Categories=Qt;System;
@@ -124,10 +119,19 @@ Index: parrot-installer/calamares.desktop
 -Icon[tr_TR]=calamares
 -GenericName[tr_TR]=Sistem Yükleyici
 -Comment[tr_TR]=Calamares — Sistem Yükleyici
-Index: parrot-installer/settings.conf
-===================================================================
---- parrot-installer.orig/settings.conf
-+++ parrot-installer/settings.conf
+--- parrot-installer-3.1.8.orig/settings.conf
++++ parrot-installer-3.1.8/settings.conf
+@@ -84,8 +84,8 @@ sequence:
+ #  - luksopenswaphookcfg
+ #  - dracutlukscfg
+ #  - plymouthcfg
+-  - initcpiocfg
+-  - initcpio
++#  - initcpiocfg
++#  - initcpio
+   - users
+   - displaymanager
+   - networkcfg
 @@ -109,7 +109,7 @@ sequence:
  # Only the name of the branding component (directory) should be specified here, Calamares
  # then takes care of finding it and loading the contents.
@@ -137,10 +141,8 @@ Index: parrot-installer/settings.conf
  
  # If this is set to true, Calamares will show an "Are you sure?" prompt right before
  # each execution phase, i.e. at points of no return. If this is set to false, no prompt
-Index: parrot-installer/src/branding/parrot/branding.desc
-===================================================================
 --- /dev/null
-+++ parrot-installer/src/branding/parrot/branding.desc
++++ parrot-installer-3.1.8/src/branding/parrot/branding.desc
 @@ -0,0 +1,27 @@
 +---
 +componentName:  parrot
@@ -169,10 +171,8 @@ Index: parrot-installer/src/branding/parrot/branding.desc
 +   sidebarBackground:    "#292F34"
 +   sidebarText:          "#FFFFFF"
 +   sidebarTextSelect:    "#292F34"
-Index: parrot-installer/src/branding/parrot/show.qml
-===================================================================
 --- /dev/null
-+++ parrot-installer/src/branding/parrot/show.qml
++++ parrot-installer-3.1.8/src/branding/parrot/show.qml
 @@ -0,0 +1,117 @@
 +/*
 + * Parrot theme for Calamares
@@ -291,10 +291,70 @@ Index: parrot-installer/src/branding/parrot/show.qml
 +        }
 +    }
 +}
-Index: parrot-installer/src/modules/fstab/fstab.conf
-===================================================================
---- parrot-installer.orig/src/modules/fstab/fstab.conf
-+++ parrot-installer/src/modules/fstab/fstab.conf
+--- parrot-installer-3.1.8.orig/src/modules/bootloader/bootloader.conf
++++ parrot-installer-3.1.8/src/modules/bootloader/bootloader.conf
+@@ -5,13 +5,13 @@ efiBootLoader: "grub"
+ 
+ # systemd-boot configuration files settings, set kernel and initramfs file names
+ # and amount of time before default selection boots
+-kernel: "/vmlinuz-linux"
+-img: "/initramfs-linux.img"
+-fallback: "/initramfs-linux-fallback.img"
+-timeout: "10"
++kernel: "/vmlinuz"
++img: "/initrd.img"
++fallback: "/initrd.img.old"
++timeout: "5"
+ # Optionally set the menu entry name and kernel name to use in systemd-boot.
+ # If not specified here, these settings will be taken from branding.desc.
+-# bootloaderEntryName: "Generic GNU/Linux"
++bootloaderEntryName: "Parrot GNU/Linux"
+ # kernelLine: ", with Stable-Kernel"
+ # fallbackKernelLine:  ", with Stable-Kernel (fallback initramfs)"
+ 
+--- parrot-installer-3.1.8.orig/src/modules/bootloader/main.py
++++ parrot-installer-3.1.8/src/modules/bootloader/main.py
+@@ -212,6 +212,18 @@ def install_grub(efi_directory, fw_type)
+     :param fw_type:
+     """
+     if fw_type == "efi":
++    	try:
++    		check_target_env_call(["dpkg",
++                               "-i",
++                               "--force-all",
++                               "/lib/live/mount/medium/pool/main/g/grub2/grub*-common*.deb"])
++    		check_target_env_call(["dpkg",
++                               "-i",
++                               "--force-all",
++                               "/lib/live/mount/medium/pool/main/g/grub2/grub-efi*.deb"])
++        except Exception:
++        	pass
++    	
+         print("Bootloader: grub (efi)")
+         install_path = libcalamares.globalstorage.value("rootMountPoint")
+         install_efi_directory = install_path + efi_directory
+@@ -281,7 +293,18 @@ def install_grub(efi_directory, fw_type)
+         boot_loader = libcalamares.globalstorage.value("bootLoader")
+         if boot_loader["installPath"] is None:
+             return
+-
++        
++    	try:
++    		check_target_env_call(["dpkg",
++                               "-i",
++                               "--force-all",
++                               "/lib/live/mount/medium/pool/main/g/grub2/grub*-common*.deb"])
++    		check_target_env_call(["dpkg",
++                               "-i",
++                               "--force-all",
++                               "/lib/live/mount/medium/pool/main/g/grub2/grub-pc*.deb"])
++        except Exception:
++        	pass
+         check_target_env_call([libcalamares.job.configuration["grubInstall"],
+                                "--target=i386-pc",
+                                "--recheck",
+--- parrot-installer-3.1.8.orig/src/modules/fstab/fstab.conf
++++ parrot-installer-3.1.8/src/modules/fstab/fstab.conf
 @@ -1,13 +1,13 @@
  ---
  mountOptions:
@@ -312,10 +372,23 @@ Index: parrot-installer/src/modules/fstab/fstab.conf
 +crypttabOptions: luks,keyscript=/bin/cat
  # For Debian and Debian-based distributions, change the above line to:
  # crypttabOptions: luks,keyscript=/bin/cat
-Index: parrot-installer/src/modules/packages/packages.conf
-===================================================================
---- parrot-installer.orig/src/modules/packages/packages.conf
-+++ parrot-installer/src/modules/packages/packages.conf
+--- parrot-installer-3.1.8.orig/src/modules/mount/mount.conf
++++ parrot-installer-3.1.8/src/modules/mount/mount.conf
+@@ -15,6 +15,12 @@ extraMounts:
+     - device: /run/udev
+       mountPoint: /run/udev
+       options: bind
++    - device: /lib/live/
++      mountPoint: /lib/live/
++      options: bind
++    - device: /lib/live/mount/medium
++      mountPoint: /lib/live/mount/medium
++      options: bind
+ 
+ extraMountsEfi:
+     - device: efivarfs
+--- parrot-installer-3.1.8.orig/src/modules/packages/packages.conf
++++ parrot-installer-3.1.8/src/modules/packages/packages.conf
 @@ -12,12 +12,12 @@
  #  - entropy     - Sabayon package manager
  #  - dummy       - Dummy manager, only logs
@@ -346,10 +419,8 @@ Index: parrot-installer/src/modules/packages/packages.conf
 +  - try_remove:
 +    - '^live-*'
 +    - parrot-installer
-Index: parrot-installer/src/modules/partition/partition.conf
-===================================================================
---- parrot-installer.orig/src/modules/partition/partition.conf
-+++ parrot-installer/src/modules/partition/partition.conf
+--- parrot-installer-3.1.8.orig/src/modules/partition/partition.conf
++++ parrot-installer-3.1.8/src/modules/partition/partition.conf
 @@ -21,7 +21,7 @@ ensureSuspendToDisk:    true
  neverCreateSwap:        false
  
@@ -359,10 +430,8 @@ Index: parrot-installer/src/modules/partition/partition.conf
  
  # Show/hide partition labels on manual partitioning page.
  alwaysShowPartitionLabels: true
-Index: parrot-installer/src/modules/services/services.conf
-===================================================================
---- parrot-installer.orig/src/modules/services/services.conf
-+++ parrot-installer/src/modules/services/services.conf
+--- parrot-installer-3.1.8.orig/src/modules/services/services.conf
++++ parrot-installer-3.1.8/src/modules/services/services.conf
 @@ -5,16 +5,11 @@ services:
    - name: "NetworkManager"  #name of the service file
      mandatory: false        #true=> if enabling fails the installer errors out and quits
@@ -381,10 +450,8 @@ Index: parrot-installer/src/modules/services/services.conf
 +disable: []
  # Example to express an empty list:
  # disable: []
-Index: parrot-installer/src/modules/unpackfs/unpackfs.conf
-===================================================================
---- parrot-installer.orig/src/modules/unpackfs/unpackfs.conf
-+++ parrot-installer/src/modules/unpackfs/unpackfs.conf
+--- parrot-installer-3.1.8.orig/src/modules/unpackfs/unpackfs.conf
++++ parrot-installer-3.1.8/src/modules/unpackfs/unpackfs.conf
 @@ -33,6 +33,6 @@ unpack:
  
  # You can list filesystem source paths relative to the Calamares run
@@ -393,10 +460,8 @@ Index: parrot-installer/src/modules/unpackfs/unpackfs.conf
 +    -   source: "/lib/live/mount/medium/live/filesystem.squashfs"
          sourcefs: squashfs
          destination: ""
-Index: parrot-installer/src/modules/users/users.conf
-===================================================================
---- parrot-installer.orig/src/modules/users/users.conf
-+++ parrot-installer/src/modules/users/users.conf
+--- parrot-installer-3.1.8.orig/src/modules/users/users.conf
++++ parrot-installer-3.1.8/src/modules/users/users.conf
 @@ -19,8 +19,19 @@ defaultGroups:
      - storage
      - wheel

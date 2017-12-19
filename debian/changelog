@@ -1,3 +1,11 @@
+parrot-installer (3.1.8-1parrot4) testing; urgency=medium
+
+  * Update parrot patches.
+  * Exclude mkinitcpio modules.
+  * Customize bootloader module.
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Tue, 19 Dec 2017 23:32:30 +0100
+
 parrot-installer (3.1.8-1parrot3) testing; urgency=medium
 
   * Rebuild
