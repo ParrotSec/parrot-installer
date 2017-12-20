@@ -212,6 +212,18 @@ def install_grub(efi_directory, fw_type):
     :param fw_type:
     """
     if fw_type == "efi":
+       try:
+           check_target_env_call(["dpkg",
+                               "-i",
+                               "--force-all",
+                               "/lib/live/mount/medium/pool/main/g/grub2/grub*-common*.deb"])
+           check_target_env_call(["dpkg",
+                               "-i",
+                               "--force-all",
+                               "/lib/live/mount/medium/pool/main/g/grub2/grub-efi*.deb"])
+        except Exception:
+           pass
+       
         print("Bootloader: grub (efi)")
         install_path = libcalamares.globalstorage.value("rootMountPoint")
         install_efi_directory = install_path + efi_directory
@@ -281,7 +293,18 @@ def install_grub(efi_directory, fw_type):
         boot_loader = libcalamares.globalstorage.value("bootLoader")
         if boot_loader["installPath"] is None:
             return
-
+        
+       try:
+           check_target_env_call(["dpkg",
+                               "-i",
+                               "--force-all",
+                               "/lib/live/mount/medium/pool/main/g/grub2/grub*-common*.deb"])
+           check_target_env_call(["dpkg",
+                               "-i",
+                               "--force-all",
+                               "/lib/live/mount/medium/pool/main/g/grub2/grub-pc*.deb"])
+        except Exception:
+           pass
         check_target_env_call([libcalamares.job.configuration["grubInstall"],
                                "--target=i386-pc",
                                "--recheck",

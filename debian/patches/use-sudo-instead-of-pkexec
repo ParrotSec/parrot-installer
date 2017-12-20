@@ -2,9 +2,11 @@ Description: Use sudo instead of pkexec
  pkexec breaks window detection and causes calamares to not start under GNOME.
  Using sudo works fine and fixes above issues.
 
---- calamares-3.0.1.orig/calamares.desktop
-+++ calamares-3.0.1/calamares.desktop
-@@ -5,7 +5,7 @@ Name=Calamares
+Index: parrot-installer/calamares.desktop
+===================================================================
+--- parrot-installer.orig/calamares.desktop
++++ parrot-installer/calamares.desktop
+@@ -5,7 +5,7 @@ Name=Parrot Installer
  GenericName=System Installer
  Keywords=calamares;system;installer
  TryExec=calamares
