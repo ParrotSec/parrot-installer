@@ -9,7 +9,7 @@ Last-Update: 2017-12-19
  Type=Application
  Version=1.0
 -Name=Calamares
-+Name=Parrot Installer
++Name=Parrot Installer (experimental)
  GenericName=System Installer
  Keywords=calamares;system;installer
  TryExec=calamares
@@ -150,10 +150,10 @@ Last-Update: 2017-12-19
 +strings:
 +    productName:         Parrot GNU/Linux
 +    shortProductName:    Parrot
-+    version:             3.10
-+    shortVersion:        3.10
-+    versionedName:       Parrot 3.10 (Intruder)
-+    shortVersionedName:  Parrot 3.10
++    version:             3.11
++    shortVersion:        3.11
++    versionedName:       Parrot 3.11 (stable)
++    shortVersionedName:  Parrot 3.11
 +    bootloaderEntryName: Parrot
 +    productUrl:          https://www.parrotsec.org
 +    supportUrl:          https://community.parrotsec.org

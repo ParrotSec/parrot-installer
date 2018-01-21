@@ -2,6 +2,8 @@ Description: Fix bootloader module
 Author: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
 Last-Update: 2018-01-21
 
+Index: parrot-installer-3.1.8/src/modules/bootloader/main.py
+===================================================================
 --- parrot-installer-3.1.8.orig/src/modules/bootloader/main.py
 +++ parrot-installer-3.1.8/src/modules/bootloader/main.py
 @@ -212,18 +212,18 @@ def install_grub(efi_directory, fw_type)

@@ -1,3 +1,9 @@
+parrot-installer (3.1.8-1parrot7) testing; urgency=medium
+
+  * Update for Parrot 3.11.
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Sun, 21 Jan 2018 09:24:20 +0100
+
 parrot-installer (3.1.8-1parrot6) testing; urgency=medium
 
   * Fix bootloader module.
